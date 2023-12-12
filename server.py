@@ -18,7 +18,7 @@ AWESOMENESS = [
 def start_here():
     """Home page."""
 
-    return "<!doctype html><html>Hi! This is the home page.</html>"
+    return """<!doctype html><html>Hi! This is the home page. <a href="/hello">Hello page</a></html>"""
 
 
 @app.route('/hello')
@@ -33,8 +33,27 @@ def say_hello():
       </head>
       <body>
         <h1>Hi There!</h1>
-        <form action="/greet">
+        <form action="/greet" method="GET">
           What's your name? <input type="text" name="person">
+          <p></p>
+          <label for="compliment-select">Please choose your compliment that you'll see in a moment after you hit the Submit button.</label>
+          <select name="compliment" id="compliment">
+            <option value="passionate">Passionate</option>
+            <option value="brilliant">Brilliant</option>
+            <option value="brave">Brave</option>
+          </select>
+          <input type="submit" value="Submit">
+        </form>
+        <p></p>
+        <form action="/diss" method="GET">
+          What's your name? <input type="text" name="person">
+          <p></p>
+          <label for="diss-select">Please choose your diss that you'll see in a moment after you hit the Submit button.</label>
+          <select name="diss" id="diss">
+            <option value="disrespectful">Disrespectful</option>
+            <option value="lazy">Lazy</option>
+            <option value="stupid">Stupid</option>
+          </select>
           <input type="submit" value="Submit">
         </form>
       </body>
@@ -45,10 +64,9 @@ def say_hello():
 @app.route('/greet')
 def greet_person():
     """Get user by name."""
-
     player = request.args.get("person")
 
-    compliment = choice(AWESOMENESS)
+    compliment = request.args.get("compliment")
 
     return f"""
     <!doctype html>
@@ -58,6 +76,25 @@ def greet_person():
       </head>
       <body>
         Hi, {player}! I think you're {compliment}!
+      </body>
+    </html>
+    """
+
+@app.route('/diss')
+def diss_person():
+    """Get user by name."""
+    player = request.args.get("person")
+
+    diss = request.args.get("diss")
+
+    return f"""
+    <!doctype html>
+    <html>
+      <head>
+        <title>A Compliment</title>
+      </head>
+      <body>
+        Hi, {player}! I think you're {diss}!
       </body>
     </html>
     """
