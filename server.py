@@ -91,7 +91,7 @@ def diss_person():
     <!doctype html>
     <html>
       <head>
-        <title>A Compliment</title>
+        <title>A diss</title>
       </head>
       <body>
         Hi, {player}! I think you're {diss}!
